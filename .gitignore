@@ -1,5 +1,6 @@
-TestCode
+TestCode/*.mp4
 model/*
+BluredVideo/*
 
 # For MacOS
 .DS_Store
