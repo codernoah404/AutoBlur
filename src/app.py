@@ -3,11 +3,11 @@ from tkinter import filedialog
 import cv2
 import PIL.Image, PIL.ImageTk
 import os
-from blur import LoadModel
+from model import LoadModel
 
 class VideoApp:
     def __init__(self, window, window_title):
-        self.model = LoadModel()
+        self.model, self.mps = LoadModel()
         if ("BluredVideo" in os.listdir(".")):
             pass
         else:
@@ -54,7 +54,10 @@ class VideoApp:
                 break  # while문을 빠져나가기
             
             else:
-                results = self.model(frame)
+                if (self.mps):
+                    results = self.model(frame, device='mps')
+                else:
+                    results = self.model(frame)
                 boxes = results[0].boxes
                 
                 for box in boxes:
