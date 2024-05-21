@@ -1,11 +1,12 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-from tkinter import filedialog
+from tkinter import filedialog, simpledialog
 import cv2
 import PIL.Image, PIL.ImageTk
 import os
 from model import LoadModel
 from tkinter import DoubleVar
+from dwnloadVdio import download_video
 
 class VideoApp:
     def __init__(self, window, window_title):
@@ -18,20 +19,33 @@ class VideoApp:
         self.window = window
         self.window.title(window_title)
         
+        
+        la = tk.Label(root, text = "Progress...\n")
+        la.config(font =("Courier", 14)) 
+        la.pack(anchor="sw")
+        
         self.video_source = None
+        style = ttk.Style()
+        style.theme_use("default")
+        style.configure("TProgressbar", background="green", thickness=25)  # 색상 및 굵기 설정
         
         self.p_var = DoubleVar()
-        self.progressbar = ttk.Progressbar(window, maximum=100, length=150, variable=self.p_var)
+        self.progressbar = ttk.Progressbar(window, style="TProgressbar", maximum=100, length=150, variable=self.p_var)
         self.progressbar.pack()
         
         self.btn_open = tk.Button(window, text="Open Video", width=15, command=self.open_video)
         self.btn_open.pack(anchor=tk.CENTER, expand=True)
         
+        self.btn_DownLoad = tk.Button(window, text="DownLoad Video", width=15, command=self.downLoad_video)
+        self.btn_DownLoad.pack(anchor=tk.CENTER, expand=True)
+        
+        self.btn_interrupt = tk.Button(window, text="Stop Blurring", width=15, command=self.stop_interrupt)
+        self.btn_interrupt.pack(anchor=tk.CENTER, expand=True)
+        
         self.delay = 15
         self.window.mainloop()
         
-
-
+        
     def open_video(self):
         self.video_source = filedialog.askopenfilename()
         if self.video_source:
@@ -80,6 +94,23 @@ class VideoApp:
         if self.vid.isOpened():	# 영상 파일(카메라)이 정상적으로 열렸는지(초기화되었는지) 여부
             self.vid.release()	# 영상 파일(카메라) 사용을 종료
             self.saveVideo.release()
+            
+    def downLoad_video(self):
+        self.url = simpledialog.askstring(title = "원하시는 영상의 URL을 입력하세요",
+                                    prompt = "https://www.youtube.com/[URL you want]:")
+        self.savePoint = filedialog.askdirectory()
+        
+        kwargs = {
+            'url': self.url,
+        }
+
+        if self.savePoint != "":
+            kwargs['path'] = self.savePoint
+            
+        download_video( **kwargs )
+    
+    def stop_interrupt(self):
+        pass
 
 if __name__ == "__main__":
     root = tk.Tk()
