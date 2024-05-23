@@ -7,6 +7,7 @@ import os
 from model import LoadModel
 from tkinter import DoubleVar
 from dwnloadVdio import download_video
+from extractSound import audio
 
 class VideoApp:
     def __init__(self, window, window_title):
@@ -48,14 +49,15 @@ class VideoApp:
         
     def open_video(self):
         self.video_source = filedialog.askopenfilename()
+        self.savePoint = "./BluredVideo/[blur]" + self.video_source.split('/')[-1]
         if self.video_source:
             self.vid = cv2.VideoCapture(self.video_source)
             self.fps = round(self.vid.get(cv2.CAP_PROP_FPS))
             self.total_frames = int(self.vid.get(cv2.CAP_PROP_FRAME_COUNT))
             self.progressbar.config(maximum=self.total_frames)
             
-            self.fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-            self.saveVideo = cv2.VideoWriter("./BluredVideo/[blur]" + self.video_source.split('/')[-1], # 저장 경로 
+            self.fourcc = cv2.VideoWriter_fourcc(*'X264') # *'DIVX'
+            self.saveVideo = cv2.VideoWriter(self.savePoint, # 저장 경로 
                                         self.fourcc, self.fps, (round(self.vid.get(cv2.CAP_PROP_FRAME_WIDTH)),
                                                     round(self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT))))
 
@@ -94,6 +96,10 @@ class VideoApp:
         if self.vid.isOpened():	# 영상 파일(카메라)이 정상적으로 열렸는지(초기화되었는지) 여부
             self.vid.release()	# 영상 파일(카메라) 사용을 종료
             self.saveVideo.release()
+            
+        audio(self.video_source, self.savePoint, self.fps)
+        
+        
             
     def downLoad_video(self):
         self.url = simpledialog.askstring(title = "원하시는 영상의 URL을 입력하세요",
