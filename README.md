@@ -36,6 +36,6 @@ git clone https://github.com/codernoah404/AutoBlur.git
 사용중인 가상환경을 활성화한 후 라이브러리를 설치하고, 앱을 실행시킵니다.
 
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 python src/app.py
 ```
