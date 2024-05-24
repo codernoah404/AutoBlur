@@ -7,6 +7,7 @@ from tkinter import DoubleVar
 from dwnloadVdio import download_video
 from extractSound import audio
 from model import LoadModel
+from blur import rect_blur, ellipse_blur
 
 class VideoApp:
     def __init__(self, window, window_title):
@@ -75,14 +76,8 @@ class VideoApp:
         for progress, result in enumerate(results):
             ori = result.orig_img
             for box in result.boxes:
-                        left_x = int(box.xyxy.tolist()[0][0])
-                        left_y = int(box.xyxy.tolist()[0][1])
-                        right_x = int(box.xyxy.tolist()[0][2])
-                        right_y = int(box.xyxy.tolist()[0][3])
-                        
-                        face = ori[left_y:right_y, left_x:right_x]
-                        
-                        ori[left_y:right_y, left_x:right_x] = cv2.blur(face, (40, 40))
+                # ori = rect_blur(box, ori)
+                ori = ellipse_blur(box, ori)
             
             self.saveVideo.write(ori)
             self.p_var.set(progress)

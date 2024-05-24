@@ -1,8 +1,10 @@
 # AutoBlur
 
 ### 🛠 Tool
-<img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/> <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=TensorFlow&logoColor=white"/> <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=PyTorch&logoColor=white"/> <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=Visual Studio Code&logoColor=white"/> <img src="https://img.shields.io/badge/pyqt-47A248?style=flat-square&logo=Python&logoColor=white"/> 
+<img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/> <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=TensorFlow&logoColor=white"/> <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=PyTorch&logoColor=white"/> <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=Visual Studio Code&logoColor=white"/> <img src="https://img.shields.io/badge/tkinter-47A248?style=flat-square&logo=Python&logoColor=white"/> 
 
+### 개발환경
+💻 M1 Pro Mac (Sonoma)
 
 ## 프로젝트 소개
 
@@ -12,6 +14,7 @@ PyQt와 Yolov8을 사용하여 구현하였으며 사용 모델은 아래 레퍼
 
 - [yolov8-face🏠](https://github.com/akanametov/yolov8-face)
 
+-> model 디렉터리에 모델을 다운로드해야 합니다. 
 
 
 ## 사용 방법
