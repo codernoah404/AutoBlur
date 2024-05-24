@@ -1,6 +1,7 @@
-TestCode/*.mp4
-model/*
+TestCode/
+model/*.pt
 BluredVideo/*
+Video/
 
 # For MacOS
 .DS_Store

@@ -2,20 +2,17 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import filedialog, simpledialog
 import cv2
-import PIL.Image, PIL.ImageTk
 import os
-from model import LoadModel
 from tkinter import DoubleVar
 from dwnloadVdio import download_video
 from extractSound import audio
+from model import LoadModel
 
 class VideoApp:
     def __init__(self, window, window_title):
         self.model, self.mps = LoadModel()
-        if ("BluredVideo" in os.listdir(".")):
-            pass
-        else:
-            os.mkdir("./BluredVideo") # 저장될 디렉터리
+        if not ("BluredVideo" in os.listdir(".")): os.mkdir("./BluredVideo") # 저장될 디렉터리
+        if not (".tempVID" in os.listdir(".")): os.mkdir("./.tempVID") # 저장될 디렉터리
             
         self.window = window
         self.window.title(window_title)
@@ -37,11 +34,8 @@ class VideoApp:
         self.btn_open = tk.Button(window, text="Open Video", width=15, command=self.open_video)
         self.btn_open.pack(anchor=tk.CENTER, expand=True)
         
-        self.btn_DownLoad = tk.Button(window, text="DownLoad Video", width=15, command=self.downLoad_video)
+        self.btn_DownLoad = tk.Button(window, text="DownLoad Video", width=15, command=self.downLoad_button)
         self.btn_DownLoad.pack(anchor=tk.CENTER, expand=True)
-        
-        self.btn_interrupt = tk.Button(window, text="Stop Blurring", width=15, command=self.stop_interrupt)
-        self.btn_interrupt.pack(anchor=tk.CENTER, expand=True)
         
         self.delay = 15
         self.window.mainloop()
@@ -49,7 +43,7 @@ class VideoApp:
         
     def open_video(self):
         self.video_source = filedialog.askopenfilename()
-        self.savePoint = "./BluredVideo/[blur]" + self.video_source.split('/')[-1]
+        self.savePoint = "./.tempVID/[temp]" + self.video_source.split('/')[-1]
         if self.video_source:
             self.vid = cv2.VideoCapture(self.video_source)
             self.fps = round(self.vid.get(cv2.CAP_PROP_FPS))
@@ -65,6 +59,7 @@ class VideoApp:
             self.height = int(self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
             
             self.save()
+            os.remove(self.savePoint)
 
     def save(self):
         kwargs = {
@@ -99,9 +94,8 @@ class VideoApp:
             
         audio(self.video_source, self.savePoint, self.fps)
         
-        
             
-    def downLoad_video(self):
+    def downLoad_button(self):
         self.url = simpledialog.askstring(title = "원하시는 영상의 URL을 입력하세요",
                                     prompt = "https://www.youtube.com/[URL you want]:")
         self.savePoint = filedialog.askdirectory()
@@ -114,9 +108,6 @@ class VideoApp:
             kwargs['path'] = self.savePoint
             
         download_video( **kwargs )
-    
-    def stop_interrupt(self):
-        pass
 
 if __name__ == "__main__":
     root = tk.Tk()
