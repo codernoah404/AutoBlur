@@ -26,19 +26,19 @@ def ellipse_blur(box, origin_pic):
     axis_major = (right_x - left_x) // 2
     axis_minor = (right_y - left_y) // 2
     
+    blurred_img = cv2.blur(origin_pic, (40, 40))
     # 타원형 마스크 생성
     mask = np.zeros_like(origin_pic)
     cv2.ellipse(mask, (center_x, center_y), (axis_major, axis_minor), 0, 0, 360, (255, 255, 255), -1)
     
     # 원본 이미지 * 타원형 영역 -> 얼굴
-    face_with_ellipse = cv2.bitwise_and(origin_pic, mask)
-    blurred_face = cv2.blur(face_with_ellipse, (40, 40))
+    face_with_ellipse = cv2.bitwise_and(blurred_img, mask)
     
     # !(타원형 마스크)
     inverse_mask = cv2.bitwise_not(mask)
     
     # 원본 이미지 * !(타원형 마스크) -> 배경
     background = cv2.bitwise_and(origin_pic, inverse_mask)
-    result_image = cv2.add(blurred_face, background)
+    result_image = cv2.add(face_with_ellipse, background)
     
     return result_image

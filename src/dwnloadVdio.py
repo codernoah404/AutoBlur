@@ -1,11 +1,11 @@
 from pytube import YouTube
 import os
-def download_video(url, path="./Video/"):
+def download_video(url, path="../Video/"):
     try:
-        if ("Video" in os.listdir(".")):
+        if ("Video" in os.listdir("..")):
             pass
         else:
-            os.mkdir("./Video") # 저장될 디렉터리
+            os.mkdir("../Video") # 저장될 디렉터리
         yt = YouTube(url)
         stream = yt.streams.get_highest_resolution()
         stream.download(output_path=path)

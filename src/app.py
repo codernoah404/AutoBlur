@@ -12,8 +12,8 @@ from blur import rect_blur, ellipse_blur
 class VideoApp:
     def __init__(self, window, window_title):
         self.model, self.mps = LoadModel()
-        if not ("BluredVideo" in os.listdir(".")): os.mkdir("./BluredVideo") # 저장될 디렉터리
-        if not (".tempVID" in os.listdir(".")): os.mkdir("./.tempVID") # 저장될 디렉터리
+        if not ("BluredVideo" in os.listdir("..")): os.mkdir("../BluredVideo") # 저장될 디렉터리
+        if not (".tempVID" in os.listdir("..")): os.mkdir("../.tempVID") # 저장될 디렉터리
             
         self.window = window
         self.window.title(window_title)
@@ -44,7 +44,7 @@ class VideoApp:
         
     def open_video(self):
         self.video_source = filedialog.askopenfilename()
-        self.savePoint = "./.tempVID/[temp]" + self.video_source.split('/')[-1]
+        self.savePoint = "../.tempVID/[temp]" + self.video_source.split('/')[-1]
         if self.video_source:
             self.vid = cv2.VideoCapture(self.video_source)
             self.fps = round(self.vid.get(cv2.CAP_PROP_FPS))
@@ -69,7 +69,7 @@ class VideoApp:
             'show_labels': False
         }
 
-        if self.mps:
+        if (self.mps == True):
             kwargs['device'] = 'mps'
             
         results = self.model(self.video_source, **kwargs)
@@ -81,7 +81,7 @@ class VideoApp:
             
             self.saveVideo.write(ori)
             self.p_var.set(progress)
-            self.window.update_idletasks()
+            self.window.update()
     
         if self.vid.isOpened():	# 영상 파일(카메라)이 정상적으로 열렸는지(초기화되었는지) 여부
             self.vid.release()	# 영상 파일(카메라) 사용을 종료
