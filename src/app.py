@@ -93,14 +93,14 @@ class VideoApp:
     def downLoad_button(self):
         self.url = simpledialog.askstring(title = "원하시는 영상의 URL을 입력하세요",
                                     prompt = "https://www.youtube.com/[URL you want]:")
-        self.savePoint = filedialog.askdirectory()
+        self.saveVideo = filedialog.askdirectory()
         
         kwargs = {
             'url': self.url,
         }
 
-        if self.savePoint != "":
-            kwargs['path'] = self.savePoint
+        if self.saveVideo != "":
+            kwargs['path'] = self.saveVideo
             
         download_video( **kwargs )
 
