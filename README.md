@@ -4,7 +4,7 @@
 <img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/> <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=TensorFlow&logoColor=white"/> <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=PyTorch&logoColor=white"/> <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=Visual Studio Code&logoColor=white"/> <img src="https://img.shields.io/badge/tkinter-47A248?style=flat-square&logo=Python&logoColor=white"/> 
 
 ### 시연 영상
-[시연 영상 링크]([https://github.com/akanametov/yolov8-face](https://drive.google.com/file/d/1aXZbmC6V1vUuGjMo7Jw-F0ybbsDFQ236/view))
+[시연 영상 링크](https://drive.google.com/file/d/1aXZbmC6V1vUuGjMo7Jw-F0ybbsDFQ236/view)
 
 ### 개발환경
 💻 M1 Pro Mac (Sonoma)
